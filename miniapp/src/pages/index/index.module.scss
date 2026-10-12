@@ -65,6 +65,12 @@
   height: 560rpx;
 }
 
+.voiceStageActive .voiceOrb {
+  box-shadow:
+    0 38rpx 96rpx rgba(255, 129, 51, 0.36),
+    inset -26rpx -30rpx 60rpx rgba(10, 42, 155, 0.38);
+}
+
 .orbit,
 .orbitSoft {
   position: absolute;

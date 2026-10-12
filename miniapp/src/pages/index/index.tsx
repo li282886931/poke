@@ -1,12 +1,31 @@
-import React from 'react'
+import { useState } from 'react'
 import { View, Text, Image } from '@tarojs/components'
 import Taro from '@tarojs/taro'
 import { BottomNav } from '@/components/BottomNav'
 import { actionIcons } from '@/data/icon-assets'
 import styles from './index.module.scss'
 
-const Index: React.FC = () => {
-  const goPublish = () => Taro.navigateTo({ url: '/pages/publish/index' })
+const Index = () => {
+  const [recording, setRecording] = useState(false)
+
+  const sampleTranscript = '我在成都高新区，需要冷库、吊车、维修或保洁资源。'
+
+  const openVoiceConfirm = (transcript = sampleTranscript) => {
+    Taro.navigateTo({
+      url: `/pages/voice-confirm/index?transcript=${encodeURIComponent(transcript)}`,
+    })
+  }
+
+  const startVoice = () => {
+    setRecording(true)
+    Taro.showToast({ title: '正在听你说需求', icon: 'none' })
+  }
+
+  const finishVoice = () => {
+    if (!recording) return
+    setRecording(false)
+    openVoiceConfirm()
+  }
 
   return (
     <View className={styles.page}>
@@ -18,7 +37,12 @@ const Index: React.FC = () => {
       </View>
 
       <View className={styles.hero}>
-        <View className={styles.voiceStage} onClick={goPublish}>
+        <View
+          className={recording ? `${styles.voiceStage} ${styles.voiceStageActive}` : styles.voiceStage}
+          onClick={() => openVoiceConfirm()}
+          onLongPress={startVoice}
+          onTouchEnd={finishVoice}
+        >
           <View className={styles.orbit} />
           <View className={styles.orbitSoft} />
           <View className={styles.voiceOrb}>
@@ -35,7 +59,7 @@ const Index: React.FC = () => {
               <View className={styles.waveDot} key={index} />
             ))}
           </View>
-          <Text>长按光球，说完松手</Text>
+          <Text>{recording ? '松手后进入确认' : '长按光球，说完松手'}</Text>
         </View>
       </View>
 

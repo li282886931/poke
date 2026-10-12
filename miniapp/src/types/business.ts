@@ -45,3 +45,25 @@ export interface Message {
   type: 'review' | 'match' | 'unlock' | 'system'
   read: boolean
 }
+
+export interface VoiceResourceMatch {
+  resourceId: string
+  name: string
+  category: string
+  district: string
+  score: number
+  reasons: string[]
+  notificationStatus: 'queued' | 'sent' | 'failed'
+  phone: string
+}
+
+export interface VoiceDemandResult {
+  leadId: string
+  status: 'matched' | 'waiting'
+  message: string
+  transcript: string
+  category: string
+  city: string
+  district: string
+  matches: VoiceResourceMatch[]
+}

@@ -6,6 +6,7 @@ const apiRoutes: Record<string, { method: 'GET' | 'POST'; path: string }> = {
   getDashboard: { method: 'GET', path: '/api/v1/dashboard' },
   createListing: { method: 'POST', path: '/api/v1/listings' },
   unlockMatch: { method: 'POST', path: '/api/v1/unlocks' },
+  submitVoiceDemand: { method: 'POST', path: '/api/v1/voice-demands' },
 }
 
 interface APIResponse<T> {
