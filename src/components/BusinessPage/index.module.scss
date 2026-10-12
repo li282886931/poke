@@ -1,0 +1,7 @@
+@use '@/styles/variables.scss' as *;
+.page { min-height:100vh; padding:32rpx $page-padding 160rpx; background:$color-bg-page; }
+.eyebrow,.label { display:block; color:$color-text-tertiary; font-size:$font-size-sm; }
+.heading,.row { display:flex; align-items:center; justify-content:space-between; }
+.heading { margin:8rpx 0 28rpx; }.title { color:$color-text-primary; font-size:40rpx; font-weight:$font-weight-bold; }.status { color:$color-primary; background:#e5f3ec; border-radius:$radius-xs; padding:6rpx 10rpx; font-size:22rpx; }
+.card { padding:4rpx 28rpx; border-radius:$radius-md; background:$color-bg-card; box-shadow:$shadow-card; }.row { min-height:96rpx; border-bottom:1rpx solid $color-divider; gap:24rpx; }.row:last-child { border-bottom:0; }.value { max-width:65%; text-align:right; color:$color-text-primary; font-size:$font-size-md; }
+.action { position:fixed; left:$page-padding; right:$page-padding; bottom:32rpx; height:$button-height-lg; border-radius:$radius-button; background:$color-primary; color:#fff; display:flex; align-items:center; justify-content:center; font-size:$font-size-md; font-weight:$font-weight-semibold; }

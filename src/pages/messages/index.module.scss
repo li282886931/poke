@@ -1,0 +1,16 @@
+@use '@/styles/variables.scss' as *;
+.page { min-height:100vh; padding:32rpx $page-padding 160rpx; background:$color-bg-page; }
+.top,.tabs,.row,.item { display:flex; align-items:center; }
+.top,.row { justify-content:space-between; }
+.title { font-size:40rpx; font-weight:$font-weight-bold; }
+.clear { color:$color-primary; font-size:$font-size-sm; }
+.tabs { gap:36rpx; border-bottom:1rpx solid $color-border; margin-top:28rpx; }
+.tab,.active { padding:16rpx 2rpx; color:$color-text-tertiary; font-size:$font-size-sm; }
+.active { color:$color-primary; border-bottom:4rpx solid $color-primary; font-weight:$font-weight-semibold; }
+.item { position:relative; gap:18rpx; padding:28rpx 0; border-bottom:1rpx solid $color-divider; }
+.marker { flex:none; width:64rpx; height:64rpx; border-radius:$radius-round; }
+.content { min-width:0; flex:1; }
+.itemTitle { font-size:$font-size-md; color:$color-text-primary; font-weight:$font-weight-semibold; }
+.time,.copy { color:$color-text-tertiary; font-size:$font-size-sm; }
+.copy { display:block; margin-top:8rpx; overflow:hidden; text-overflow:ellipsis; white-space:nowrap; }
+.dot { position:absolute; right:0; top:30rpx; width:12rpx; height:12rpx; border-radius:$radius-round; background:$color-error; }

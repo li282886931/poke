@@ -1,0 +1,6 @@
+@use '@/styles/variables.scss' as *;
+.label { display:block; margin:28rpx 0 16rpx; font-size:$font-size-md; font-weight:$font-weight-semibold; }.options { display:flex; flex-wrap:wrap; gap:14rpx; }.option,.active { padding:14rpx 20rpx; background:#fff; border-radius:$radius-button; color:$color-text-secondary; font-size:$font-size-sm; }.active { color:#fff; background:$color-primary; }.textarea { box-sizing:border-box; width:100%; height:210rpx; padding:22rpx; background:#fff; border-radius:$radius-md; font-size:$font-size-md; }.notice { margin-top:28rpx; padding:24rpx; border-radius:$radius-md; background:#fff5e8; }.notice text:first-child { display:block; color:$color-warning; font-size:$font-size-sm; font-weight:$font-weight-semibold; }.notice text:last-child { display:block; margin-top:8rpx; color:$color-text-secondary; font-size:$font-size-sm; line-height:1.7; }
+.trace,.service { padding:24rpx; border-radius:$radius-md; background:#fff; box-shadow:$shadow-card; }
+.service { background:#eef7f3; }
+.traceTitle { display:block; color:$color-text-primary; font-size:$font-size-md; font-weight:$font-weight-semibold; }
+.traceCopy { display:block; margin-top:10rpx; color:$color-text-secondary; font-size:$font-size-sm; line-height:1.7; }

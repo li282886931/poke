@@ -1,0 +1,38 @@
+@use '@/styles/variables.scss' as *;
+
+.page { min-height: 100vh; padding: 28rpx $page-padding 160rpx; background:$color-bg-page; }
+.header, .headerRight, .roleBar, .sectionHeading, .listTop, .listFoot, .priorityTop { display: flex; align-items: center; }
+.header { justify-content: space-between; margin-bottom: 28rpx; }
+.city, .eyebrow, .heroDesc, .cardMeta, .listFoot { display: block; color: $color-text-tertiary; font-size: $font-size-sm; }
+.brand { display: block; font-size: 44rpx; font-weight: $font-weight-bold; color: $color-text-primary; margin-top: 4rpx; }
+.headerRight { gap: 12rpx; color: $color-text-secondary; font-size: $font-size-sm; }
+.notice { width: 34rpx; height: 34rpx; border-radius: $radius-round; background: $color-error; color: #fff; font-size: 20rpx; display:flex; justify-content:center; align-items:center; }
+.icon { padding: 12rpx 0 12rpx 8rpx; }
+.roleBar { width: 260rpx; justify-content: space-between; border-bottom: 2rpx solid $color-border; margin-bottom: 28rpx; }
+.role, .roleActive { padding: 14rpx 8rpx; font-size: $font-size-sm; color: $color-text-tertiary; }
+.roleActive { color: $color-primary; border-bottom: 4rpx solid $color-primary; font-weight: $font-weight-semibold; }
+.residentHero, .masterHero { min-height: 280rpx; border-radius: $radius-lg; padding: 36rpx; color: #fff; margin-bottom: 40rpx; }
+.residentHero { background: radial-gradient(circle at 28% 12%, rgba(96,217,255,.55), transparent 28%), linear-gradient(135deg, #123964, #1231aa 72%); box-shadow:0 22rpx 64rpx rgba(21,102,255,.25); }
+.masterHero { background: radial-gradient(circle at 28% 12%, rgba(96,217,255,.45), transparent 28%), linear-gradient(135deg,#10254b,#06101d); display:flex; align-items:center; justify-content:space-between; gap:16rpx; box-shadow:0 22rpx 64rpx rgba(21,102,255,.2); }
+.eyebrow { color: rgba(255,255,255,.72); }
+.heroTitle { display:block; margin: 12rpx 0; font-size: 38rpx; line-height: 1.35; font-weight: $font-weight-bold; }
+.heroDesc { color: rgba(255,255,255,.84); line-height: 1.6; }
+.voiceButton { margin-top: 28rpx; height: 72rpx; border-radius: $radius-button; background: #fff; color: $color-primary; padding: 0 28rpx; display:flex; justify-content:space-between; align-items:center; font-size:$font-size-md; font-weight:$font-weight-semibold; }
+.mic { width:40rpx; height:40rpx; }
+.heroButton { flex: none; padding: 18rpx 24rpx; background: linear-gradient(135deg,#ff9f35,#ff7417); color: #fff; border-radius: $radius-button; font-size: $font-size-sm; }
+.sectionHeading { justify-content:space-between; margin: 28rpx 0 20rpx; }
+.sectionTitle { font-weight:$font-weight-bold; font-size:$font-size-lg; color:$color-text-primary; }
+.more { color:$color-primary; font-size:$font-size-sm; padding: 8rpx 0 8rpx 16rpx; }
+.categoryScroll { width: 100%; white-space: nowrap; }
+.categories { display:inline-flex; gap:16rpx; padding-bottom:4rpx; }
+.category { width: 148rpx; min-height: 132rpx; border-radius:$radius-md; padding:20rpx; background:$color-bg-card; box-shadow:$shadow-card; display:inline-flex; flex-direction:column; gap:12rpx; color:$color-text-secondary; font-size:$font-size-sm; white-space:normal; }
+.categoryMark { width:48rpx; height:48rpx; border-radius:$radius-sm; flex:none; }
+.priorityCard, .listCard { background:$color-bg-card; border-radius:$radius-md; padding:28rpx; box-shadow:$shadow-card; margin-bottom:20rpx; }
+.priorityCard { border-left: 8rpx solid $color-warning; }
+.priorityTop, .listTop { justify-content:space-between; margin-bottom:16rpx; }
+.tag { color:$color-primary; background:#e5f3ec; border-radius:$radius-xs; padding:6rpx 10rpx; font-size:22rpx; white-space:nowrap; }
+.timer { color:$color-warning; font-size:$font-size-sm; font-weight:$font-weight-semibold; }
+.status { color:$color-success; font-size:$font-size-sm; }
+.cardTitle { display:block; color:$color-text-primary; font-size:$font-size-md; line-height:1.5; font-weight:$font-weight-semibold; margin-bottom:10rpx; }
+.cardMeta { line-height:1.7; }
+.listFoot { justify-content:space-between; margin-top:18rpx; padding-top:16rpx; border-top: 1rpx solid $color-divider; font-size:22rpx; }
