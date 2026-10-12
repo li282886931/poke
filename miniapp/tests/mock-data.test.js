@@ -33,6 +33,7 @@ test('development mock data includes broad service categories', () => {
 test('development icon image assets exist and are wired into visible pages', () => {
   const iconSource = fs.readFileSync(iconAssetsPath, 'utf8')
   const pageSources = [
+    'src/components/BottomNav/index.tsx',
     'src/pages/index/index.tsx',
     'src/pages/messages/index.tsx',
     'src/pages/unlock/index.tsx',

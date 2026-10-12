@@ -1,38 +1,359 @@
 @use '@/styles/variables.scss' as *;
 
-.page { min-height: 100vh; padding: 28rpx $page-padding 160rpx; background:$color-bg-page; }
-.header, .headerRight, .roleBar, .sectionHeading, .listTop, .listFoot, .priorityTop { display: flex; align-items: center; }
-.header { justify-content: space-between; margin-bottom: 28rpx; }
-.city, .eyebrow, .heroDesc, .cardMeta, .listFoot { display: block; color: $color-text-tertiary; font-size: $font-size-sm; }
-.brand { display: block; font-size: 44rpx; font-weight: $font-weight-bold; color: $color-text-primary; margin-top: 4rpx; }
-.headerRight { gap: 12rpx; color: $color-text-secondary; font-size: $font-size-sm; }
-.notice { width: 34rpx; height: 34rpx; border-radius: $radius-round; background: $color-error; color: #fff; font-size: 20rpx; display:flex; justify-content:center; align-items:center; }
-.icon { padding: 12rpx 0 12rpx 8rpx; }
-.roleBar { width: 260rpx; justify-content: space-between; border-bottom: 2rpx solid $color-border; margin-bottom: 28rpx; }
-.role, .roleActive { padding: 14rpx 8rpx; font-size: $font-size-sm; color: $color-text-tertiary; }
-.roleActive { color: $color-primary; border-bottom: 4rpx solid $color-primary; font-weight: $font-weight-semibold; }
-.residentHero, .masterHero { min-height: 280rpx; border-radius: $radius-lg; padding: 36rpx; color: #fff; margin-bottom: 40rpx; }
-.residentHero { background: radial-gradient(circle at 28% 12%, rgba(96,217,255,.55), transparent 28%), linear-gradient(135deg, #123964, #1231aa 72%); box-shadow:0 22rpx 64rpx rgba(21,102,255,.25); }
-.masterHero { background: radial-gradient(circle at 28% 12%, rgba(96,217,255,.45), transparent 28%), linear-gradient(135deg,#10254b,#06101d); display:flex; align-items:center; justify-content:space-between; gap:16rpx; box-shadow:0 22rpx 64rpx rgba(21,102,255,.2); }
-.eyebrow { color: rgba(255,255,255,.72); }
-.heroTitle { display:block; margin: 12rpx 0; font-size: 38rpx; line-height: 1.35; font-weight: $font-weight-bold; }
-.heroDesc { color: rgba(255,255,255,.84); line-height: 1.6; }
-.voiceButton { margin-top: 28rpx; height: 72rpx; border-radius: $radius-button; background: #fff; color: $color-primary; padding: 0 28rpx; display:flex; justify-content:space-between; align-items:center; font-size:$font-size-md; font-weight:$font-weight-semibold; }
-.mic { width:40rpx; height:40rpx; }
-.heroButton { flex: none; padding: 18rpx 24rpx; background: linear-gradient(135deg,#ff9f35,#ff7417); color: #fff; border-radius: $radius-button; font-size: $font-size-sm; }
-.sectionHeading { justify-content:space-between; margin: 28rpx 0 20rpx; }
-.sectionTitle { font-weight:$font-weight-bold; font-size:$font-size-lg; color:$color-text-primary; }
-.more { color:$color-primary; font-size:$font-size-sm; padding: 8rpx 0 8rpx 16rpx; }
-.categoryScroll { width: 100%; white-space: nowrap; }
-.categories { display:inline-flex; gap:16rpx; padding-bottom:4rpx; }
-.category { width: 148rpx; min-height: 132rpx; border-radius:$radius-md; padding:20rpx; background:$color-bg-card; box-shadow:$shadow-card; display:inline-flex; flex-direction:column; gap:12rpx; color:$color-text-secondary; font-size:$font-size-sm; white-space:normal; }
-.categoryMark { width:48rpx; height:48rpx; border-radius:$radius-sm; flex:none; }
-.priorityCard, .listCard { background:$color-bg-card; border-radius:$radius-md; padding:28rpx; box-shadow:$shadow-card; margin-bottom:20rpx; }
-.priorityCard { border-left: 8rpx solid $color-warning; }
-.priorityTop, .listTop { justify-content:space-between; margin-bottom:16rpx; }
-.tag { color:$color-primary; background:#e5f3ec; border-radius:$radius-xs; padding:6rpx 10rpx; font-size:22rpx; white-space:nowrap; }
-.timer { color:$color-warning; font-size:$font-size-sm; font-weight:$font-weight-semibold; }
-.status { color:$color-success; font-size:$font-size-sm; }
-.cardTitle { display:block; color:$color-text-primary; font-size:$font-size-md; line-height:1.5; font-weight:$font-weight-semibold; margin-bottom:10rpx; }
-.cardMeta { line-height:1.7; }
-.listFoot { justify-content:space-between; margin-top:18rpx; padding-top:16rpx; border-top: 1rpx solid $color-divider; font-size:22rpx; }
+.page {
+  position: relative;
+  min-height: 100vh;
+  overflow: hidden;
+  padding: 34rpx 32rpx 162rpx;
+  color: $color-text-primary;
+  background:
+    linear-gradient(180deg, rgba(41, 34, 73, 0.72) 0%, rgba(5, 16, 29, 0.96) 18%, #030811 100%),
+    $color-bg-page;
+}
+
+.header {
+  position: relative;
+  z-index: 2;
+  display: grid;
+  grid-template-columns: 68rpx 1fr auto;
+  align-items: center;
+  gap: 18rpx;
+  min-height: 108rpx;
+}
+
+.menuButton {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  gap: 10rpx;
+  width: 64rpx;
+  height: 64rpx;
+}
+
+.menuLine {
+  display: block;
+  width: 46rpx;
+  height: 5rpx;
+  border-radius: 8rpx;
+  background: rgba(255, 255, 255, 0.92);
+}
+
+.brandWrap {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  min-width: 0;
+  gap: 14rpx;
+}
+
+.logoMark {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex: none;
+  width: 64rpx;
+  height: 64rpx;
+  border-radius: 16rpx;
+  background: linear-gradient(135deg, #5cf0ff, #1767ff);
+  box-shadow: 0 10rpx 30rpx rgba(43, 188, 255, 0.28);
+}
+
+.logoText {
+  color: #fff;
+  font-size: 34rpx;
+  font-weight: $font-weight-bold;
+  line-height: 1;
+}
+
+.brand {
+  display: block;
+  color: #fff;
+  font-size: 44rpx;
+  font-weight: 800;
+  line-height: 1.12;
+}
+
+.subtitle {
+  display: block;
+  margin-top: 6rpx;
+  color: rgba(191, 207, 236, 0.82);
+  font-size: 22rpx;
+  line-height: 1.2;
+}
+
+.headerActions {
+  display: flex;
+  align-items: center;
+  gap: 18rpx;
+}
+
+.bellButton {
+  position: relative;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 58rpx;
+  height: 58rpx;
+  color: transparent;
+}
+
+.bellButton::before {
+  content: '';
+  width: 30rpx;
+  height: 32rpx;
+  border: 5rpx solid rgba(255, 255, 255, 0.9);
+  border-bottom: 0;
+  border-radius: 24rpx 24rpx 10rpx 10rpx;
+}
+
+.bellButton::after {
+  content: '';
+  position: absolute;
+  bottom: 8rpx;
+  width: 22rpx;
+  height: 5rpx;
+  border-radius: 8rpx;
+  background: rgba(255, 255, 255, 0.9);
+}
+
+.bellDot {
+  position: absolute;
+  top: 6rpx;
+  right: 8rpx;
+  width: 14rpx;
+  height: 14rpx;
+  border: 4rpx solid rgba(12, 20, 34, 0.95);
+  border-radius: $radius-round;
+  background: $color-error;
+}
+
+.publishButton {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 12rpx;
+  height: 72rpx;
+  min-width: 154rpx;
+  padding: 0 24rpx;
+  border-radius: $radius-button;
+  color: #fff;
+  font-size: 28rpx;
+  font-weight: $font-weight-bold;
+  background: linear-gradient(135deg, #ffb24a, #ff7b19);
+  box-shadow: 0 16rpx 34rpx rgba(255, 132, 30, 0.28);
+}
+
+.plus {
+  font-size: 38rpx;
+  line-height: 1;
+}
+
+.hero {
+  position: relative;
+  z-index: 1;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  min-height: 980rpx;
+  padding-top: 112rpx;
+  text-align: center;
+}
+
+.voiceStage {
+  position: relative;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 570rpx;
+  height: 570rpx;
+}
+
+.orbit,
+.orbitSoft {
+  position: absolute;
+  border-radius: $radius-round;
+  pointer-events: none;
+}
+
+.orbit {
+  width: 520rpx;
+  height: 520rpx;
+  border: 2rpx solid rgba(82, 211, 255, 0.34);
+  box-shadow: inset 0 0 54rpx rgba(43, 188, 255, 0.13);
+}
+
+.orbitSoft {
+  width: 420rpx;
+  height: 420rpx;
+  border: 2rpx solid rgba(89, 132, 255, 0.24);
+}
+
+.voiceOrb {
+  position: relative;
+  z-index: 1;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 356rpx;
+  height: 356rpx;
+  border-radius: $radius-round;
+  background:
+    radial-gradient(circle at 34% 28%, rgba(255, 255, 255, 0.92), rgba(91, 226, 255, 0.52) 26%, rgba(17, 118, 255, 0.9) 68%, #1738c8 100%);
+  box-shadow:
+    0 34rpx 90rpx rgba(19, 101, 255, 0.42),
+    inset -26rpx -30rpx 60rpx rgba(10, 42, 155, 0.38);
+}
+
+.voiceIcon {
+  width: 104rpx;
+  height: 104rpx;
+  filter: brightness(0) invert(1);
+}
+
+.mainTitle {
+  display: block;
+  width: 100%;
+  margin-top: 42rpx;
+  color: #fff;
+  font-size: 52rpx;
+  font-weight: 800;
+  line-height: 1.22;
+}
+
+.example {
+  display: block;
+  margin-top: 26rpx;
+  color: rgba(185, 200, 231, 0.86);
+  font-size: 28rpx;
+  line-height: 1.5;
+}
+
+.voiceHint {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 28rpx;
+  margin-top: 110rpx;
+  color: rgba(142, 160, 195, 0.9);
+  font-size: 26rpx;
+}
+
+.wave {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 12rpx;
+  height: 22rpx;
+}
+
+.waveDot {
+  width: 8rpx;
+  height: 22rpx;
+  border-radius: 8rpx;
+  background: rgba(43, 188, 255, 0.28);
+}
+
+.waveDot:nth-child(3n) {
+  height: 28rpx;
+  background: rgba(43, 188, 255, 0.48);
+}
+
+.liveStatus {
+  position: relative;
+  z-index: 2;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 18rpx;
+  margin-top: -8rpx;
+  min-height: 68rpx;
+}
+
+.liveDot {
+  width: 18rpx;
+  height: 18rpx;
+  border-radius: $radius-round;
+  background: $color-success;
+  box-shadow: 0 0 22rpx rgba(39, 212, 111, 0.64);
+}
+
+.liveText {
+  color: #fff;
+  font-size: 36rpx;
+  font-weight: 800;
+  line-height: 1.25;
+}
+
+.liveBadge {
+  padding: 4rpx 14rpx;
+  border: 2rpx solid rgba(39, 212, 111, 0.58);
+  border-radius: $radius-button;
+  color: $color-success;
+  font-size: 24rpx;
+  font-weight: $font-weight-bold;
+  line-height: 1.2;
+}
+
+.modeSwitch {
+  position: relative;
+  z-index: 2;
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 10rpx;
+  margin: 44rpx auto 0;
+  width: 332rpx;
+  padding: 8rpx;
+  border: 1rpx solid rgba(109, 142, 190, 0.28);
+  border-radius: $radius-button;
+  background: rgba(8, 16, 31, 0.72);
+}
+
+.mode,
+.modeActive {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  min-height: 56rpx;
+  border-radius: $radius-button;
+  color: rgba(183, 199, 223, 0.86);
+  font-size: 24rpx;
+  font-weight: $font-weight-semibold;
+}
+
+.modeActive {
+  color: #041427;
+  background: #fff;
+}
+
+.quickBubble {
+  position: fixed;
+  right: 48rpx;
+  bottom: 188rpx;
+  z-index: 21;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 108rpx;
+  height: 108rpx;
+  border: 4rpx solid rgba(255, 255, 255, 0.2);
+  border-radius: $radius-round;
+  background: linear-gradient(135deg, #35efe1, #1b6cff);
+  box-shadow: 0 18rpx 46rpx rgba(29, 120, 255, 0.42);
+}
+
+.quickIcon {
+  width: 58rpx;
+  height: 58rpx;
+  filter: brightness(0) invert(1);
+}
+
+.quickBadge {
+  position: absolute;
+  top: -4rpx;
+  right: -4rpx;
+  width: 28rpx;
+  height: 28rpx;
+  border: 4rpx solid #06101d;
+  border-radius: $radius-round;
+  background: $color-warning;
+}

@@ -1,9 +1,8 @@
 import React from 'react'
-import { View, Text, ScrollView, Image } from '@tarojs/components'
+import { View, Text, Image } from '@tarojs/components'
 import Taro from '@tarojs/taro'
 import { BottomNav } from '@/components/BottomNav'
-import { actionIcons, categoryIcons } from '@/data/icon-assets'
-import { categories, residentListings } from '@/data/mock-data'
+import { actionIcons } from '@/data/icon-assets'
 import { useSession } from '@/store/session'
 import styles from './index.module.scss'
 
@@ -12,88 +11,88 @@ const Index: React.FC = () => {
   const isMaster = role === 'master'
 
   const goPublish = () => Taro.navigateTo({ url: '/pages/publish/index' })
-  const openListing = () => Taro.navigateTo({ url: '/pages/publish-detail/index?id=lead-001' })
-  const openMatch = () => Taro.navigateTo({ url: '/pages/match-detail/index?id=match-001' })
+  const goMessages = () => Taro.redirectTo({ url: '/pages/messages/index' })
+  const goMatches = () => Taro.redirectTo({ url: '/pages/matches/index' })
 
   return (
     <View className={styles.page}>
       <View className={styles.header}>
-        <View>
-          <Text className={styles.city}>成都 · 高新区</Text>
-          <Text className={styles.brand}>万栖源</Text>
+        <View className={styles.menuButton}>
+          <View className={styles.menuLine} />
+          <View className={styles.menuLine} />
+          <View className={styles.menuLine} />
         </View>
-        <View className={styles.headerRight}>
-          <Text className={styles.notice}>2</Text>
-          <Text className={styles.icon} onClick={() => Taro.redirectTo({ url: '/pages/messages/index' })}>消息</Text>
-        </View>
-      </View>
 
-      <View className={styles.roleBar}>
-        <Text className={!isMaster ? styles.roleActive : styles.role} onClick={() => setRole('resident')}>我是居民</Text>
-        <Text className={isMaster ? styles.roleActive : styles.role} onClick={() => setRole('master')}>我是师傅</Text>
-      </View>
-
-      {isMaster ? (
-        <View className={styles.masterHero}>
-          <View>
-            <Text className={styles.eyebrow}>今日服务工作台</Text>
-            <Text className={styles.heroTitle}>有 2 个匹配待处理</Text>
-            <Text className={styles.heroDesc}>认证已通过 · 服务范围正常 · 可用额度 36</Text>
+        <View className={styles.brandWrap}>
+          <View className={styles.logoMark}>
+            <Text className={styles.logoText}>万</Text>
           </View>
-          <View className={styles.heroButton} onClick={() => Taro.redirectTo({ url: '/pages/matches/index' })}>去处理</View>
+          <View>
+            <Text className={styles.brand}>万栖源</Text>
+            <Text className={styles.subtitle}>全国资源 · 一键对接</Text>
+          </View>
         </View>
-      ) : (
-        <View className={styles.residentHero} onClick={goPublish}>
-          <Text className={styles.eyebrow}>需要什么服务？</Text>
-          <Text className={styles.heroTitle}>说一说，快速发布需求</Text>
-          <Text className={styles.heroDesc}>识别结果需由你确认后才会参与匹配</Text>
-          <View className={styles.voiceButton}><Text>按住说话</Text><Image className={styles.mic} src={actionIcons.voice} /></View>
-        </View>
-      )}
 
-      <View className={styles.sectionHeading}>
-        <Text className={styles.sectionTitle}>{isMaster ? '优先处理' : '常用发布'}</Text>
-        <Text className={styles.more} onClick={goPublish}>{isMaster ? '查看全部' : '手动填写'}</Text>
-      </View>
-      {isMaster ? (
-        <View className={styles.priorityCard} onClick={openMatch}>
-          <View className={styles.priorityTop}><Text className={styles.tag}>优先窗口</Text><Text className={styles.timer}>剩余 09:42</Text></View>
-          <Text className={styles.cardTitle}>空调不制冷，需要上门检修</Text>
-          <Text className={styles.cardMeta}>家电维修 · 高新区 · 1.2 - 2.0 km</Text>
-          <Text className={styles.cardMeta}>今天 18:00 后 · 消耗 8 额度</Text>
+        <View className={styles.headerActions}>
+          <View className={styles.bellButton} onClick={goMessages}>
+            <View className={styles.bellDot} />
+            <Text>通知</Text>
+          </View>
+          <View className={styles.publishButton} onClick={goPublish}>
+            <Text className={styles.plus}>+</Text>
+            <Text>发布</Text>
+          </View>
         </View>
-      ) : (
-        <ScrollView className={styles.categoryScroll} scrollX>
-          <View className={styles.categories}>
-            {categories.map(category => (
-              <View className={styles.category} key={category} onClick={goPublish}>
-                <Image className={styles.categoryMark} src={categoryIcons[category]} />
-                <Text>{category}</Text>
-              </View>
+      </View>
+
+      <View className={styles.hero}>
+        <View className={styles.voiceStage} onClick={goPublish}>
+          <View className={styles.orbit} />
+          <View className={styles.orbitSoft} />
+          <View className={styles.voiceOrb}>
+            <Image className={styles.voiceIcon} src={actionIcons.voice} />
+          </View>
+        </View>
+
+        <Text className={styles.mainTitle}>按住说话，说出你的需求</Text>
+        <Text className={styles.example}>例如：我在成都，急需 500 平米冷库</Text>
+
+        <View className={styles.voiceHint}>
+          <View className={styles.wave}>
+            {Array.from({ length: 18 }).map((_, index) => (
+              <View className={styles.waveDot} key={index} />
             ))}
           </View>
-        </ScrollView>
-      )}
-
-      <View className={styles.sectionHeading}>
-        <Text className={styles.sectionTitle}>{isMaster ? '附近可响应' : '我的进行中需求'}</Text>
-        <Text className={styles.more} onClick={() => Taro.redirectTo({ url: '/pages/matches/index' })}>查看匹配</Text>
+          <Text>长按光球开始 · 松手自动识别</Text>
+        </View>
       </View>
-      {!isMaster && residentListings.map(item => (
-        <View className={styles.listCard} key={item.id} onClick={openListing}>
-          <View className={styles.listTop}><Text className={styles.tag}>{item.category}</Text><Text className={styles.status}>匹配中</Text></View>
-          <Text className={styles.cardTitle}>{item.title}</Text>
-          <Text className={styles.cardMeta}>{item.district} · {item.time}</Text>
-          <View className={styles.listFoot}><Text>{item.createdAt} 发布</Text><Text>已有 3 个资源响应</Text></View>
-        </View>
-      ))}
-      {isMaster && residentListings.map(item => (
-        <View className={styles.listCard} key={item.id} onClick={openMatch}>
-          <View className={styles.listTop}><Text className={styles.tag}>{item.category}</Text><Text className={styles.status}>可响应</Text></View>
-          <Text className={styles.cardTitle}>{item.title}</Text>
-          <Text className={styles.cardMeta}>{item.district} · {item.distance} · {item.time}</Text>
-        </View>
-      ))}
+
+      <View className={styles.liveStatus} onClick={goMatches}>
+        <View className={styles.liveDot} />
+        <Text className={styles.liveText}>全国资源实时对接中...</Text>
+        <Text className={styles.liveBadge}>LIVE</Text>
+      </View>
+
+      <View className={styles.modeSwitch}>
+        <Text
+          className={!isMaster ? styles.modeActive : styles.mode}
+          onClick={() => setRole('resident')}
+        >
+          找资源
+        </Text>
+        <Text
+          className={isMaster ? styles.modeActive : styles.mode}
+          onClick={() => setRole('master')}
+        >
+          接需求
+        </Text>
+      </View>
+
+      <View className={styles.quickBubble} onClick={goPublish}>
+        <Image className={styles.quickIcon} src={actionIcons.voice} />
+        <View className={styles.quickBadge} />
+      </View>
+
       <BottomNav active="home" />
     </View>
   )
