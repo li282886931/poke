@@ -4,148 +4,46 @@
   position: relative;
   min-height: 100vh;
   overflow: hidden;
-  padding: 34rpx 32rpx 162rpx;
+  padding: 52rpx 40rpx 156rpx;
   color: $color-text-primary;
   background:
-    linear-gradient(180deg, rgba(41, 34, 73, 0.72) 0%, rgba(5, 16, 29, 0.96) 18%, #030811 100%),
-    $color-bg-page;
-}
-
-.header {
-  position: relative;
-  z-index: 2;
-  display: grid;
-  grid-template-columns: 68rpx 1fr auto;
-  align-items: center;
-  gap: 18rpx;
-  min-height: 108rpx;
-}
-
-.menuButton {
-  display: flex;
-  flex-direction: column;
-  justify-content: center;
-  gap: 10rpx;
-  width: 64rpx;
-  height: 64rpx;
-}
-
-.menuLine {
-  display: block;
-  width: 46rpx;
-  height: 5rpx;
-  border-radius: 8rpx;
-  background: rgba(255, 255, 255, 0.92);
+    radial-gradient(circle at 50% 26%, rgba(43, 188, 255, 0.26), transparent 34%),
+    linear-gradient(180deg, #071324 0%, #030811 100%);
 }
 
 .brandWrap {
+  position: relative;
+  z-index: 2;
   display: flex;
   align-items: center;
   justify-content: center;
-  min-width: 0;
   gap: 14rpx;
+  height: 76rpx;
 }
 
 .logoMark {
   display: flex;
   align-items: center;
   justify-content: center;
-  flex: none;
-  width: 64rpx;
-  height: 64rpx;
-  border-radius: 16rpx;
+  width: 54rpx;
+  height: 54rpx;
+  border-radius: 14rpx;
   background: linear-gradient(135deg, #5cf0ff, #1767ff);
-  box-shadow: 0 10rpx 30rpx rgba(43, 188, 255, 0.28);
+  box-shadow: 0 10rpx 28rpx rgba(43, 188, 255, 0.24);
 }
 
 .logoText {
   color: #fff;
-  font-size: 34rpx;
+  font-size: 30rpx;
   font-weight: $font-weight-bold;
   line-height: 1;
 }
 
 .brand {
-  display: block;
   color: #fff;
-  font-size: 44rpx;
+  font-size: 40rpx;
   font-weight: 800;
-  line-height: 1.12;
-}
-
-.subtitle {
-  display: block;
-  margin-top: 6rpx;
-  color: rgba(191, 207, 236, 0.82);
-  font-size: 22rpx;
-  line-height: 1.2;
-}
-
-.headerActions {
-  display: flex;
-  align-items: center;
-  gap: 18rpx;
-}
-
-.bellButton {
-  position: relative;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  width: 58rpx;
-  height: 58rpx;
-  color: transparent;
-}
-
-.bellButton::before {
-  content: '';
-  width: 30rpx;
-  height: 32rpx;
-  border: 5rpx solid rgba(255, 255, 255, 0.9);
-  border-bottom: 0;
-  border-radius: 24rpx 24rpx 10rpx 10rpx;
-}
-
-.bellButton::after {
-  content: '';
-  position: absolute;
-  bottom: 8rpx;
-  width: 22rpx;
-  height: 5rpx;
-  border-radius: 8rpx;
-  background: rgba(255, 255, 255, 0.9);
-}
-
-.bellDot {
-  position: absolute;
-  top: 6rpx;
-  right: 8rpx;
-  width: 14rpx;
-  height: 14rpx;
-  border: 4rpx solid rgba(12, 20, 34, 0.95);
-  border-radius: $radius-round;
-  background: $color-error;
-}
-
-.publishButton {
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  gap: 12rpx;
-  height: 72rpx;
-  min-width: 154rpx;
-  padding: 0 24rpx;
-  border-radius: $radius-button;
-  color: #fff;
-  font-size: 28rpx;
-  font-weight: $font-weight-bold;
-  background: linear-gradient(135deg, #ffb24a, #ff7b19);
-  box-shadow: 0 16rpx 34rpx rgba(255, 132, 30, 0.28);
-}
-
-.plus {
-  font-size: 38rpx;
-  line-height: 1;
+  line-height: 1.1;
 }
 
 .hero {
@@ -154,8 +52,7 @@
   display: flex;
   flex-direction: column;
   align-items: center;
-  min-height: 980rpx;
-  padding-top: 112rpx;
+  padding-top: 132rpx;
   text-align: center;
 }
 
@@ -164,8 +61,8 @@
   display: flex;
   align-items: center;
   justify-content: center;
-  width: 570rpx;
-  height: 570rpx;
+  width: 560rpx;
+  height: 560rpx;
 }
 
 .orbit,
@@ -176,16 +73,16 @@
 }
 
 .orbit {
-  width: 520rpx;
-  height: 520rpx;
-  border: 2rpx solid rgba(82, 211, 255, 0.34);
-  box-shadow: inset 0 0 54rpx rgba(43, 188, 255, 0.13);
+  width: 514rpx;
+  height: 514rpx;
+  border: 2rpx solid rgba(88, 208, 255, 0.28);
+  box-shadow: inset 0 0 54rpx rgba(43, 188, 255, 0.12);
 }
 
 .orbitSoft {
-  width: 420rpx;
-  height: 420rpx;
-  border: 2rpx solid rgba(89, 132, 255, 0.24);
+  width: 410rpx;
+  height: 410rpx;
+  border: 2rpx solid rgba(104, 139, 255, 0.2);
 }
 
 .voiceOrb {
@@ -194,13 +91,13 @@
   display: flex;
   align-items: center;
   justify-content: center;
-  width: 356rpx;
-  height: 356rpx;
+  width: 344rpx;
+  height: 344rpx;
   border-radius: $radius-round;
   background:
     radial-gradient(circle at 34% 28%, rgba(255, 255, 255, 0.92), rgba(91, 226, 255, 0.52) 26%, rgba(17, 118, 255, 0.9) 68%, #1738c8 100%);
   box-shadow:
-    0 34rpx 90rpx rgba(19, 101, 255, 0.42),
+    0 34rpx 88rpx rgba(19, 101, 255, 0.42),
     inset -26rpx -30rpx 60rpx rgba(10, 42, 155, 0.38);
 }
 
@@ -213,19 +110,20 @@
 .mainTitle {
   display: block;
   width: 100%;
-  margin-top: 42rpx;
+  margin-top: 48rpx;
   color: #fff;
-  font-size: 52rpx;
+  font-size: 56rpx;
   font-weight: 800;
-  line-height: 1.22;
+  line-height: 1.18;
 }
 
 .example {
   display: block;
+  max-width: 600rpx;
   margin-top: 26rpx;
-  color: rgba(185, 200, 231, 0.86);
+  color: rgba(190, 207, 236, 0.82);
   font-size: 28rpx;
-  line-height: 1.5;
+  line-height: 1.55;
 }
 
 .voiceHint {
@@ -233,8 +131,8 @@
   flex-direction: column;
   align-items: center;
   gap: 28rpx;
-  margin-top: 110rpx;
-  color: rgba(142, 160, 195, 0.9);
+  margin-top: 92rpx;
+  color: rgba(143, 164, 203, 0.92);
   font-size: 26rpx;
 }
 
@@ -258,102 +156,17 @@
   background: rgba(43, 188, 255, 0.48);
 }
 
-.liveStatus {
+.matchFlow {
   position: relative;
   z-index: 2;
   display: flex;
+  flex-direction: column;
   align-items: center;
-  justify-content: center;
   gap: 18rpx;
-  margin-top: -8rpx;
-  min-height: 68rpx;
-}
-
-.liveDot {
-  width: 18rpx;
-  height: 18rpx;
-  border-radius: $radius-round;
-  background: $color-success;
-  box-shadow: 0 0 22rpx rgba(39, 212, 111, 0.64);
-}
-
-.liveText {
-  color: #fff;
-  font-size: 36rpx;
-  font-weight: 800;
-  line-height: 1.25;
-}
-
-.liveBadge {
-  padding: 4rpx 14rpx;
-  border: 2rpx solid rgba(39, 212, 111, 0.58);
-  border-radius: $radius-button;
-  color: $color-success;
-  font-size: 24rpx;
-  font-weight: $font-weight-bold;
-  line-height: 1.2;
-}
-
-.modeSwitch {
-  position: relative;
-  z-index: 2;
-  display: grid;
-  grid-template-columns: 1fr 1fr;
-  gap: 10rpx;
-  margin: 44rpx auto 0;
-  width: 332rpx;
-  padding: 8rpx;
-  border: 1rpx solid rgba(109, 142, 190, 0.28);
-  border-radius: $radius-button;
-  background: rgba(8, 16, 31, 0.72);
-}
-
-.mode,
-.modeActive {
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  min-height: 56rpx;
-  border-radius: $radius-button;
-  color: rgba(183, 199, 223, 0.86);
-  font-size: 24rpx;
+  margin: 78rpx auto 0;
+  color: rgba(220, 231, 248, 0.94);
+  font-size: 30rpx;
   font-weight: $font-weight-semibold;
-}
-
-.modeActive {
-  color: #041427;
-  background: #fff;
-}
-
-.quickBubble {
-  position: fixed;
-  right: 48rpx;
-  bottom: 188rpx;
-  z-index: 21;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  width: 108rpx;
-  height: 108rpx;
-  border: 4rpx solid rgba(255, 255, 255, 0.2);
-  border-radius: $radius-round;
-  background: linear-gradient(135deg, #35efe1, #1b6cff);
-  box-shadow: 0 18rpx 46rpx rgba(29, 120, 255, 0.42);
-}
-
-.quickIcon {
-  width: 58rpx;
-  height: 58rpx;
-  filter: brightness(0) invert(1);
-}
-
-.quickBadge {
-  position: absolute;
-  top: -4rpx;
-  right: -4rpx;
-  width: 28rpx;
-  height: 28rpx;
-  border: 4rpx solid #06101d;
-  border-radius: $radius-round;
-  background: $color-warning;
+  line-height: 1.45;
+  text-align: center;
 }

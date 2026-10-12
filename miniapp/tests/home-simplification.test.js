@@ -9,13 +9,19 @@ const stylePath = path.join(__dirname, '..', 'src', 'pages', 'index', 'index.mod
 test('home page is voice-first and does not render data-heavy lists', () => {
   const source = fs.readFileSync(pagePath, 'utf8')
 
-  assert.ok(source.includes('按住说话，说出你的需求'))
-  assert.ok(source.includes('全国资源实时对接中'))
-  assert.ok(source.includes('发布'))
+  assert.ok(source.includes('说出你的需求'))
+  assert.ok(source.includes('系统会去资源池匹配'))
+  assert.ok(source.includes('有合适的资源方会联系你'))
+  assert.ok(source.includes('暂时没有就继续等待匹配'))
   assert.equal(source.includes('residentListings.map'), false)
   assert.equal(source.includes('categories.map'), false)
   assert.equal(source.includes('listCard'), false)
   assert.equal(source.includes('priorityCard'), false)
+  assert.equal(source.includes('liveStatus'), false)
+  assert.equal(source.includes('modeSwitch'), false)
+  assert.equal(source.includes('quickBubble'), false)
+  assert.equal(source.includes('bellButton'), false)
+  assert.equal(source.includes('publishButton'), false)
 })
 
 test('home page styles include the large voice orb treatment', () => {
@@ -23,5 +29,8 @@ test('home page styles include the large voice orb treatment', () => {
 
   assert.ok(source.includes('.voiceOrb'))
   assert.ok(source.includes('.orbit'))
-  assert.ok(source.includes('.liveStatus'))
+  assert.ok(source.includes('.matchFlow'))
+  assert.equal(source.includes('.liveStatus'), false)
+  assert.equal(source.includes('.modeSwitch'), false)
+  assert.equal(source.includes('.quickBubble'), false)
 })
