@@ -1,8 +1,8 @@
 {
-  "name": "taro_template",
+  "name": "wanqiyuan-miniapp",
   "version": "1.0.0",
   "private": true,
-  "description": "taro_template",
+  "description": "万栖源全品类资源撮合小程序",
   "templateInfo": {
     "name": "react",
     "typescript": true,
@@ -10,6 +10,7 @@
     "framework": "React"
   },
   "scripts": {
+    "test": "node --test tests/*.test.js",
     "build:weapp": "taro build --type weapp",
     "build:swan": "taro build --type swan",
     "build:alipay": "taro build --type alipay",

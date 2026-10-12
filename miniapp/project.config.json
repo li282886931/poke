@@ -1,8 +1,7 @@
 {
   "miniprogramRoot": "dist/",
-  "cloudfunctionRoot": "cloudfunctions/",
-  "projectname": "taro_template",
-  "description": "taro_template",
+  "projectname": "wanqiyuan-miniapp",
+  "description": "万栖源全品类资源撮合小程序",
   "appid": "touristappid",
   "setting": {
     "urlCheck": true,

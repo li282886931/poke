@@ -56,6 +56,19 @@ declare module '@tarojs/taro' {
     icon?: 'success' | 'none'
   }
 
+  interface RequestOptions<T = unknown> {
+    url: string
+    method?: 'GET' | 'POST' | 'PUT' | 'DELETE'
+    data?: Record<string, unknown>
+    timeout?: number
+    header?: Record<string, string>
+  }
+
+  interface RequestResult<T = unknown> {
+    statusCode: number
+    data: T
+  }
+
   interface CloudApi {
     init(options: { env: string; traceUser?: boolean }): void
   }
@@ -67,6 +80,7 @@ declare module '@tarojs/taro' {
     redirectTo(options: NavigateOptions): void
     switchTab(options: NavigateOptions): void
     showToast(options: ToastOptions): void
+    request<T = unknown>(options: RequestOptions<T>): Promise<RequestResult<T>>
   }
 
   export function useDidShow(callback: () => void): void
