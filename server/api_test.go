@@ -123,6 +123,87 @@ func TestUnlockMatchReturnsContactAndCreditSummary(t *testing.T) {
 	}
 }
 
+func TestVoiceDemandMatchesResourcePoolAndNotifiesResourceSide(t *testing.T) {
+	handler := NewHTTPHandler(NewSeedStore())
+	body := strings.NewReader(`{"transcript":"我在成都高新区，急需500平米冷库","userId":"user-01","durationSeconds":6}`)
+	request := httptest.NewRequest(http.MethodPost, "/api/v1/voice-demands", body)
+	request.Header.Set("Content-Type", "application/json")
+	response := httptest.NewRecorder()
+
+	handler.ServeHTTP(response, request)
+
+	if response.Code != http.StatusCreated {
+		t.Fatalf("expected 201, got %d", response.Code)
+	}
+	data := getData(t, decodeBody(t, response.Body))
+	if data["status"] != "matched" {
+		t.Fatalf("expected matched status, got %#v", data["status"])
+	}
+	if data["category"] != "设备租赁" {
+		t.Fatalf("expected inferred category, got %#v", data["category"])
+	}
+	if data["district"] != "高新区" {
+		t.Fatalf("expected inferred district, got %#v", data["district"])
+	}
+	matches := data["matches"].([]any)
+	if len(matches) == 0 {
+		t.Fatalf("expected resource matches, got %#v", matches)
+	}
+	first := matches[0].(map[string]any)
+	if first["resourceId"] == "" {
+		t.Fatalf("expected resource id in match, got %#v", first)
+	}
+	if first["notificationStatus"] != "queued" {
+		t.Fatalf("expected queued notification, got %#v", first["notificationStatus"])
+	}
+	if strings.Contains(first["phone"].(string), "138") {
+		t.Fatalf("resource phone should stay masked or absent, got %#v", first["phone"])
+	}
+}
+
+func TestVoiceDemandWaitsWhenNoResourceMatches(t *testing.T) {
+	handler := NewHTTPHandler(NewSeedStore())
+	body := strings.NewReader(`{"transcript":"我在成都需要潜水设备维护","userId":"user-01"}`)
+	request := httptest.NewRequest(http.MethodPost, "/api/v1/voice-demands", body)
+	request.Header.Set("Content-Type", "application/json")
+	response := httptest.NewRecorder()
+
+	handler.ServeHTTP(response, request)
+
+	if response.Code != http.StatusCreated {
+		t.Fatalf("expected 201, got %d", response.Code)
+	}
+	data := getData(t, decodeBody(t, response.Body))
+	if data["status"] != "waiting" {
+		t.Fatalf("expected waiting status, got %#v", data["status"])
+	}
+	if data["message"] != "暂时没有合适资源，已进入等待匹配" {
+		t.Fatalf("unexpected message: %#v", data["message"])
+	}
+	matches := data["matches"].([]any)
+	if len(matches) != 0 {
+		t.Fatalf("expected no matches, got %#v", matches)
+	}
+}
+
+func TestVoiceDemandRejectsEmptyTranscript(t *testing.T) {
+	handler := NewHTTPHandler(NewSeedStore())
+	body := strings.NewReader(`{"audioUrl":"https://example.invalid/voice.mp3"}`)
+	request := httptest.NewRequest(http.MethodPost, "/api/v1/voice-demands", body)
+	request.Header.Set("Content-Type", "application/json")
+	response := httptest.NewRecorder()
+
+	handler.ServeHTTP(response, request)
+
+	if response.Code != http.StatusBadRequest {
+		t.Fatalf("expected 400, got %d", response.Code)
+	}
+	payload := decodeBody(t, response.Body)
+	if !strings.Contains(payload["message"].(string), "transcript") {
+		t.Fatalf("expected transcript error, got %#v", payload)
+	}
+}
+
 func TestNewStoreFromEnvFallsBackToSeedWithoutMongoURI(t *testing.T) {
 	t.Setenv("MONGO_URI", "")
 	t.Setenv("MONGO_DATABASE", "")

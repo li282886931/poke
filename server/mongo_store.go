@@ -101,6 +101,53 @@ func (store *MongoStore) UnlockMatch(ctx context.Context, input UnlockInput) (ma
 	return unlock, err
 }
 
+func (store *MongoStore) SubmitVoiceDemand(ctx context.Context, input VoiceDemandInput) (VoiceDemandResult, error) {
+	resources, err := store.readResourceProfiles(ctx)
+	if err != nil || len(resources) == 0 {
+		resources = store.seed.resources
+	}
+
+	result, err := MatchVoiceDemand(input, resources)
+	if err != nil {
+		return VoiceDemandResult{}, err
+	}
+	result.LeadID = "voice-lead-" + time.Now().Format("20060102150405.000000000")
+
+	lead := map[string]any{
+		"id":              result.LeadID,
+		"source":          "voice",
+		"status":          result.Status,
+		"transcript":      result.Transcript,
+		"category":        result.Category,
+		"city":            result.City,
+		"district":        result.District,
+		"matches":         result.Matches,
+		"audioUrl":        input.AudioURL,
+		"durationSeconds": input.DurationSeconds,
+		"createdAt":       time.Now().Format(time.RFC3339),
+	}
+	if _, err := store.db.Collection("leads").InsertOne(ctx, lead); err != nil {
+		return result, err
+	}
+
+	if len(result.Matches) > 0 {
+		for _, match := range result.Matches {
+			message := map[string]any{
+				"type":       "voice_match",
+				"leadId":     result.LeadID,
+				"resourceId": match.ResourceID,
+				"title":      "新的语音需求待联系",
+				"content":    result.Transcript,
+				"status":     "queued",
+				"createdAt":  time.Now().Format(time.RFC3339),
+			}
+			_, _ = store.db.Collection("messages").InsertOne(ctx, message)
+		}
+	}
+
+	return result, nil
+}
+
 func (store *MongoStore) readMaps(ctx context.Context, collection string) ([]map[string]any, error) {
 	cursor, err := store.db.Collection(collection).Find(ctx, bson.M{}, options.Find().SetLimit(50))
 	if err != nil {
@@ -113,4 +160,38 @@ func (store *MongoStore) readMaps(ctx context.Context, collection string) ([]map
 		return nil, err
 	}
 	return rows, nil
+}
+
+func (store *MongoStore) readResourceProfiles(ctx context.Context) ([]ResourceProfile, error) {
+	cursor, err := store.db.Collection("resources").Find(ctx, bson.M{}, options.Find().SetLimit(100))
+	if err != nil {
+		return nil, err
+	}
+	defer cursor.Close(ctx)
+
+	var resources []ResourceProfile
+	for cursor.Next(ctx) {
+		var row struct {
+			ID          string   `bson:"id"`
+			Name        string   `bson:"name"`
+			Category    string   `bson:"category"`
+			City        string   `bson:"city"`
+			Districts   []string `bson:"districts"`
+			Keywords    []string `bson:"keywords"`
+			PhoneMasked string   `bson:"phoneMasked"`
+		}
+		if err := cursor.Decode(&row); err != nil {
+			return nil, err
+		}
+		resources = append(resources, ResourceProfile{
+			ID:          row.ID,
+			Name:        row.Name,
+			Category:    row.Category,
+			City:        row.City,
+			Districts:   row.Districts,
+			Keywords:    row.Keywords,
+			PhoneMasked: row.PhoneMasked,
+		})
+	}
+	return resources, cursor.Err()
 }

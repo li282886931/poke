@@ -15,7 +15,8 @@ tests/         仓库结构级回归测试
 
 - 小程序首版页面：`首页`、`匹配`、`消息`、`我的`、发布、语音确认、发布详情、匹配详情、解锁、认证范围、额度账户、反馈申诉。
 - 小程序服务层：优先调用 Go API，接口不可用时回退本地 mock，保证本地页面可运行。
-- Go 后端：`/healthz`、`/api/v1/dashboard`、`/api/v1/listings`、`/api/v1/unlocks`。
+- Go 后端：`/healthz`、`/api/v1/dashboard`、`/api/v1/listings`、`/api/v1/unlocks`、`/api/v1/voice-demands`。
+- 语音需求处理：当前接口接收语音转写文本和音频元信息，抽取城市、区域、品类，并匹配后端资源池；命中资源时排队通知资源方联系用户，未命中时进入等待匹配。
 - MongoDB 接入：配置 `MONGO_URI` 后连接 MongoDB；未配置或连接失败时使用 seed 数据。
 - 合规边界：无 C 端与 B 端在线聊天；双方仅在线索解锁后电话联系。客服、申诉、服务确认单、72 小时反馈与评价承担平台留痕。
 
@@ -31,6 +32,14 @@ SERVER_ADDR=:8080 MONGO_URI= MONGO_DATABASE=wanqiyuan_dev go run ./cmd/api
 
 ```bash
 curl http://127.0.0.1:8080/healthz
+```
+
+提交语音需求转写文本：
+
+```bash
+curl -X POST http://127.0.0.1:8080/api/v1/voice-demands \
+  -H 'Content-Type: application/json' \
+  -d '{"userId":"user-01","transcript":"我在成都高新区，急需500平米冷库","durationSeconds":6}'
 ```
 
 未配置 MongoDB 时会返回 `store=seed`，用于本地联调。
@@ -81,6 +90,7 @@ node --test tests/*.test.js
 ## 后续接入方向
 
 - 将 seed 数据替换为完整 MongoDB 集合读写和索引初始化。
+- 将当前 `transcript` 输入替换为真实 ASR 服务回调，保留后端匹配接口契约。
 - 引入 Redis TTL 事件，实现 15 秒优先权秒级释放和推送。
 - 接入真实微信登录、订阅消息、短信、实名核验、支付充值和对象存储。
 - 补齐管理后台、规则配置、仲裁、调价审计与对账能力。

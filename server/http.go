@@ -66,6 +66,24 @@ func NewHTTPHandler(store Store) http.Handler {
 		writeJSON(response, http.StatusCreated, APIResponse{Code: 0, Message: "ok", Data: unlock})
 	})
 
+	mux.HandleFunc("/api/v1/voice-demands", func(response http.ResponseWriter, request *http.Request) {
+		if request.Method != http.MethodPost {
+			writeError(response, http.StatusMethodNotAllowed, "method_not_allowed")
+			return
+		}
+		var input VoiceDemandInput
+		if err := decodeJSON(request, &input); err != nil {
+			writeError(response, http.StatusBadRequest, err.Error())
+			return
+		}
+		result, err := store.SubmitVoiceDemand(request.Context(), input)
+		if err != nil {
+			writeError(response, http.StatusBadRequest, err.Error())
+			return
+		}
+		writeJSON(response, http.StatusCreated, APIResponse{Code: 0, Message: "ok", Data: result})
+	})
+
 	return withCORS(mux)
 }
 

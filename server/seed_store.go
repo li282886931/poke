@@ -8,6 +8,7 @@ import (
 
 type SeedStore struct {
 	dashboard Dashboard
+	resources []ResourceProfile
 }
 
 func NewSeedStore() *SeedStore {
@@ -28,6 +29,13 @@ func NewSeedStore() *SeedStore {
 			},
 			Categories: []string{"家电维修", "家政保洁", "局部家装", "劳务服务", "设备租赁", "农机服务", "同城运输"},
 			Credit:     36,
+		},
+		resources: []ResourceProfile{
+			{ID: "res-cold-001", Name: "成都冷库资源调度中心", Category: "设备租赁", City: "成都", Districts: []string{"高新区", "双流区", "龙泉驿区"}, Keywords: []string{"冷库", "冷链", "仓储"}, PhoneMasked: "平台代通知"},
+			{ID: "res-crane-001", Name: "龙泉吊装设备队", Category: "设备租赁", City: "成都", Districts: []string{"龙泉驿区", "高新区"}, Keywords: []string{"吊车", "叉车", "短驳"}, PhoneMasked: "平台代通知"},
+			{ID: "res-repair-001", Name: "高新区家电维修师傅", Category: "家电维修", City: "成都", Districts: []string{"高新区", "武侯区"}, Keywords: []string{"空调", "洗衣机", "冰箱", "检修"}, PhoneMasked: "平台代通知"},
+			{ID: "res-clean-001", Name: "成华深度保洁组", Category: "家政保洁", City: "成都", Districts: []string{"成华区", "锦江区"}, Keywords: []string{"保洁", "油污", "清洁"}, PhoneMasked: "平台代通知"},
+			{ID: "res-transport-001", Name: "双流同城运输车队", Category: "同城运输", City: "成都", Districts: []string{"双流区", "高新区"}, Keywords: []string{"运输", "冷链", "配送"}, PhoneMasked: "平台代通知"},
 		},
 	}
 }
@@ -64,4 +72,13 @@ func (store *SeedStore) UnlockMatch(ctx context.Context, input UnlockInput) (map
 			"phone": "138 **** 2568",
 		},
 	}, nil
+}
+
+func (store *SeedStore) SubmitVoiceDemand(ctx context.Context, input VoiceDemandInput) (VoiceDemandResult, error) {
+	result, err := MatchVoiceDemand(input, store.resources)
+	if err != nil {
+		return VoiceDemandResult{}, err
+	}
+	result.LeadID = fmt.Sprintf("voice-lead-%d", time.Now().UnixNano())
+	return result, nil
 }
